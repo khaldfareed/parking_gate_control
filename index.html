@@ -6,38 +6,8 @@
     <title>Parking Gate Control</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
-        body {
-            background-color: #f3f3f3; /* Set background color */
-            background-image: url('bg.jpg'); /* Set background image */
-            background-size: cover;
-            background-position: center;
-            animation: backgroundAnimation 30s infinite linear;
-            margin: 0; /* Remove default body margin */
-            padding: 0; /* Remove default body padding */
-        }
-
-        @keyframes backgroundAnimation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container {
-            position: relative;
-            z-index: 1; /* Ensure content is above the background animation */
-            padding: 20px; /* Add padding to the container */
-            margin-top: 50px; /* Example margin for top */
-        }
-
-        .numpad .row {
-            margin-bottom: 10px; /* Add margin between rows */
-        }
-
-        .numpad .btn {
-            width: 100%; /* Make buttons full width of their container */
-            padding: 15px; /* Adjust padding amount */
-            margin-bottom: 10px; /* Add margin between buttons */
+        .btn-pad {
+            padding: 10px; /* Adjust padding amount as needed */
         }
     </style>
 </head>
@@ -49,59 +19,32 @@
                 <input type="text" id="codeInput" class="form-control text-center mb-3" readonly>
                 <div class="numpad">
                     <div class="row">
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('1')">1</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('2')">2</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('3')">3</button>
-                        </div>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('1')">1</button>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('2')">2</button>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('3')">3</button>
                     </div>
                     <div class="row">
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('4')">4</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('5')">5</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('6')">6</button>
-                        </div>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('4')">4</button>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('5')">5</button>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('6')">6</button>
                     </div>
                     <div class="row">
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('7')">7</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('8')">8</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('9')">9</button>
-                        </div>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('7')">7</button>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('8')">8</button>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('9')">9</button>
                     </div>
                     <div class="row">
-                        <div class="col-4">
-                            <button class="btn btn-danger" onclick="clearCode()">Clear</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-primary" onclick="addDigit('0')">0</button>
-                        </div>
-                        <div class="col-4">
-                            <button class="btn btn-success" onclick="submitCode()">Enter</button>
-                        </div>
+                        <button class="btn btn-danger col-4 btn-pad" onclick="clearCode()">Clear</button>
+                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('0')">0</button>
+                        <button class="btn btn-success col-4 btn-pad" onclick="submitCode()">Enter</button>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-12">
-                            <button class="btn btn-warning" onclick="submitExitCode()">Exit</button>
-                        </div>
+                        <button class="btn btn-warning col-12 btn-pad" onclick="submitExitCode()">Exit</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
+    <script src="js/scripts.js"></script>
 </body>
 </html>
