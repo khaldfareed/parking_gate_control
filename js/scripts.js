@@ -11,17 +11,14 @@ function clearCode() {
 }
 
 function handleApiResponse(response) {
-    if (response.ok) {
-        return response.json().then(data => {
+    return response.json().then(data => {
+        if (response.ok) {
             alert(data.message || 'Gate opened successfully.');
-            clearCode();
-        });
-    } else {
-        return response.json().then(data => {
+        } else {
             alert(data.message || 'Failed to open the gate.');
-            clearCode();
-        });
-    }
+        }
+        clearCode();
+    });
 }
 
 function submitCode() {
