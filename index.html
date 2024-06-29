@@ -6,7 +6,6 @@
     <title>Parking Gate Control</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
         body {
             background-color: #f3f3f3; /* Set background color */
             background-image: url('bg.jpg'); /* Set background image */
@@ -32,18 +31,23 @@
 
         .numpad .row {
             margin-bottom: 10px; /* Add margin between rows */
+            display: flex;
+            justify-content: space-between;
         }
 
         .numpad .btn {
-            width: 100%; /* Make buttons full width of their container */
+            width: calc(33.33% - 10px); /* Adjust button width */
             padding: 15px; /* Adjust padding amount */
-            margin-bottom: 10px; /* Add margin between buttons */
         }
 
         .btn-pad {
-            margin: 5px;
+            margin: 5px; /* Adjust margin between buttons */
         }
 
+        .exit-button {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -54,27 +58,29 @@
                 <input type="text" id="codeInput" class="form-control text-center mb-3" readonly>
                 <div class="numpad">
                     <div class="row">
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('1')">1</button>
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('2')">2</button>
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('3')">3</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('1')">1</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('2')">2</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('3')">3</button>
                     </div>
                     <div class="row">
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('4')">4</button>
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('5')">5</button>
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('6')">6</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('4')">4</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('5')">5</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('6')">6</button>
                     </div>
                     <div class="row">
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('7')">7</button>
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('8')">8</button>
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('9')">9</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('7')">7</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('8')">8</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('9')">9</button>
                     </div>
                     <div class="row">
-                        <button class="btn btn-danger col-4 btn-pad" onclick="clearCode()">Clear</button>
-                        <button class="btn btn-primary col-4 btn-pad" onclick="addDigit('0')">0</button>
-                        <button class="btn btn-success col-4 btn-pad" onclick="submitCode()">Enter</button>
+                        <button class="btn btn-danger btn-pad" onclick="clearCode()">Clear</button>
+                        <button class="btn btn-primary btn-pad" onclick="addDigit('0')">0</button>
+                        <button class="btn btn-success btn-pad" onclick="submitCode()">Enter</button>
                     </div>
                     <div class="row mt-3">
-                        <button class="btn btn-warning col-12 btn-pad" onclick="submitExitCode()">Exit</button>
+                        <div class="col-12 exit-button">
+                            <button class="btn btn-warning btn-pad" onclick="submitExitCode()">Exit</button>
+                        </div>
                     </div>
                 </div>
             </div>
