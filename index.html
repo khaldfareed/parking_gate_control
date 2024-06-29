@@ -4,43 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parking Gate Control</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .numpad { display: flex; flex-wrap: wrap; width: 200px; margin: 20px auto; }
+        .numpad button { width: 60px; height: 60px; margin: 5px; font-size: 24px; }
+        .code-display { font-size: 24px; text-align: center; margin-bottom: 10px; }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h1 class="text-center">Parking Gate Control</h1>
-                <input type="text" id="codeInput" class="form-control text-center mb-3" readonly>
-                <div class="numpad">
-                    <div class="row">
-                        <button class="btn btn-primary col-4" onclick="addDigit('1')">1</button>
-                        <button class="btn btn-primary col-4" onclick="addDigit('2')">2</button>
-                        <button class="btn btn-primary col-4" onclick="addDigit('3')">3</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-primary col-4" onclick="addDigit('4')">4</button>
-                        <button class="btn btn-primary col-4" onclick="addDigit('5')">5</button>
-                        <button class="btn btn-primary col-4" onclick="addDigit('6')">6</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-primary col-4" onclick="addDigit('7')">7</button>
-                        <button class="btn btn-primary col-4" onclick="addDigit('8')">8</button>
-                        <button class="btn btn-primary col-4" onclick="addDigit('9')">9</button>
-                    </div>
-                    <div class="row">
-                        <button class="btn btn-danger col-4" onclick="clearCode()">Clear</button>
-                        <button class="btn btn-primary col-4" onclick="addDigit('0')">0</button>
-                        <button class="btn btn-success col-4" onclick="submitCode()">Enter</button>
-                    </div>
-                    <div class="row mt-3">
-                        <button class="btn btn-warning col-12" onclick="submitExitCode()">Exit</button>
-                    </div>
+            <div class="col-md-6 text-center">
+                <h1>Parking Gate Control</h1>
+                <div class="code-display" id="code-display"></div>
+                <div class="numpad" id="numpad">
+                    <!-- Numpad buttons will be generated here -->
                 </div>
+                <button class="btn btn-primary" onclick="activateCode()">Activate Code</button>
+                <button class="btn btn-secondary" onclick="exitCode()">Exit Code</button>
+                <div id="response-message"></div>
             </div>
         </div>
     </div>
-    <script src="js/scripts.js"></script>
+
+    <script>
+        const numpad = document.getElementById('numpad');
+        const codeDisplay = document.getElementById('code-display');
+        const responseMessage = document.getElementById('response-message');
+        let code = '';
+
+        // Generate numpad buttons
+        for (let i = 1; i <= 9; i++) {
+            const button = document.createElement('button');
+            button.textContent = i;
+            button.classList.add('btn', 'btn-light');
+            button.onclick = () => appendToCode(i);
+            numpad.appendChild(button);
+        }
+        // Add 0 button
+        const zeroButton = document.createElement('button');
+        zeroButton.textContent = 0;
+        zeroButton.classList.add('btn', 'btn-light');
+        zeroButton.onclick = () => appendToCode(0);
+        numpad.appendChild(zeroButton);
+
+        function appendToCode(number) {
+            code += number;
+            codeDisplay.textContent = code;
+        }
+
+        function activateCode() {
+            if (!code) return;
+            const token = getCookie('jwt');
+            if (!token) {
+                responseMessage.textContent = 'No JWT token found in cookies';
+                return;
+            }
+            fetch(`https://cse-parking.up.railway.app/api/activate/${code}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                responseMessage.textContent = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                responseMessage.textContent = 'Failed to activate the gate';
+            });
+        }
+
+        function exitCode() {
+            if (!code) return;
+            const token = getCookie('jwt');
+            if (!token) {
+                responseMessage.textContent = 'No JWT token found in cookies';
+                return;
+            }
+            fetch(`https://cse-parking.up.railway.app/api/exit/${code}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                responseMessage.textContent = data.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                responseMessage.textContent = 'Failed to exit the gate';
+            });
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    </script>
 </body>
 </html>
