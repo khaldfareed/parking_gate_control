@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.numpad {
+    display: flex;
+    flex-direction: column;
+}
+
+.numpad .row {
+    margin-bottom: 10px;
+}
+
+.numpad .btn {
+    font-size: 1.5rem;
+    height: 70px;
+}
