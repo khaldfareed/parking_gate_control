@@ -14,6 +14,18 @@ function handleApiResponse(response) {
     return response.json().then(data => {
         if (response.ok) {
             alert(data.message || 'Gate opened successfully.');
+
+            // Trigger NodeMCU to open the gate
+            fetch('https://jsonplaceholder.typicode.com/gets', { method: 'GET' }) // Replace with your NodeMCU IP address
+                .then(nodemcuResponse => {
+                    if (nodemcuResponse.ok) {
+                        console.log('Gate opened by NodeMCU.');
+                    } else {
+                        console.error('Failed to open gate with NodeMCU.');
+                    }
+                })
+                .catch(err => console.error('Error triggering NodeMCU:', err));
+
         } else {
             alert(data.message || 'Failed to open the gate.');
         }
