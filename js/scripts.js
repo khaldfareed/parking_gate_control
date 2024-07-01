@@ -1,25 +1,3 @@
-function handleApiResponse(response) {
-    return response.json().then(data => {
-        if (response.ok) {
-            alert(data.message || 'Gate opened successfully.');
-            // Trigger a mock NodeMCU response
-            fetch(`https://jsonplaceholder.typicode.com/posts`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ title: 'Gate Control', body: 'Gate opened', userId: 1 })
-            })
-                .then(response => response.json())
-                .then(json => console.log('Mock NodeMCU response:', json))
-                .catch(err => console.error('Error triggering mock NodeMCU:', err));
-        } else {
-            alert(data.message || 'Failed to open the gate.');
-        }
-        clearCode();
-    });
-}
-
 function addDigit(digit) {
     const input = document.getElementById('codeInput');
     if (input.value.length < 4) {
@@ -32,15 +10,25 @@ function clearCode() {
     input.value = '';
 }
 
+function handleApiResponse(response) {
+    return response.json().then(data => {
+        if (response.ok) {
+            alert(data.message || 'Gate opened successfully.');
+        } else {
+            alert(data.message || 'Failed to open the gate.');
+        }
+        clearCode();
+    });
+}
+
 function submitCode() {
     const code = document.getElementById('codeInput').value;
     if (code.length === 4) {
-        fetch(`https://jsonplaceholder.typicode.com/posts`, {
+        fetch(`https://cse-parking.up.railway.app/api/activate/${code}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ code: code })
+            }
         })
         .then(handleApiResponse)
         .catch(error => {
@@ -55,12 +43,11 @@ function submitCode() {
 function submitExitCode() {
     const code = document.getElementById('codeInput').value;
     if (code.length === 4) {
-        fetch(`https://jsonplaceholder.typicode.com/posts`, {
+        fetch(`https://cse-parking.up.railway.app/api/exit/${code}/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ code: code })
+            }
         })
         .then(handleApiResponse)
         .catch(error => {
