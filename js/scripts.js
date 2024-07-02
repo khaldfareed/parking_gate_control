@@ -14,18 +14,6 @@ function handleApiResponse(response) {
     return response.json().then(data => {
         if (response.ok) {
             alert(data.message || 'Gate opened successfully.');
-
-            // Trigger NodeMCU to open the gate
-            fetch('https://jsonplaceholder.typicode.com/gets', { method: 'GET' }) // Replace with your NodeMCU IP address
-                .then(nodemcuResponse => {
-                    if (nodemcuResponse.ok) {
-                        console.log('Gate opened by NodeMCU.');
-                    } else {
-                        console.error('Failed to open gate with NodeMCU.');
-                    }
-                })
-                .catch(err => console.error('Error triggering NodeMCU:', err));
-
         } else {
             alert(data.message || 'Failed to open the gate.');
         }
@@ -36,8 +24,9 @@ function handleApiResponse(response) {
 function submitCode() {
     const code = document.getElementById('codeInput').value;
     if (code.length === 4) {
-        fetch(`https://cse-parking.up.railway.app/api/activate/${code}/`, {
-            method: 'POST',
+        // Replace with JSONPlaceholder URL for testing
+        fetch(`https://jsonplaceholder.typicode.com/posts/312`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -55,8 +44,9 @@ function submitCode() {
 function submitExitCode() {
     const code = document.getElementById('codeInput').value;
     if (code.length === 4) {
-        fetch(`https://cse-parking.up.railway.app/api/exit/${code}/`, {
-            method: 'POST',
+        // Replace with JSONPlaceholder URL for testing
+        fetch(`https://jsonplaceholder.typicode.com/posts/313`, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
