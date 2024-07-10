@@ -16,7 +16,7 @@ function handleApiResponse(response) {
             alert(data.message || 'Gate opened successfully.');
 
             // Trigger NodeMCU to open the gate
-            fetch('https://cse-parking.up.railway.app/api/freeslots/', { method: 'GET' }) // Replace with your NodeMCU IP address
+            fetch('http://nodemcu-ip/open/', { method: 'GET' }) // is Replaced with local NodeMCU IP address
                 .then(nodemcuResponse => {
                     if (nodemcuResponse.ok) {
                         console.log('Gate opened by NodeMCU.');

@@ -7,6 +7,10 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             background: #f3f3f3 url('bg.jpg') no-repeat center center fixed; /* Set background image */
             background-size: cover;
             background-position: center;
@@ -27,6 +31,12 @@
             padding: 20px; /* Add padding to the container */
             margin-top: 50px; /* Example margin for top */
         }
+        .numpad {
+            display: flex;
+            flex-direction: column;
+        }
+
+
 
         .numpad .row {
             margin-bottom: 10px; /* Add margin between rows */
@@ -35,6 +45,10 @@
         }
 
         .numpad .btn {
+            font-size: 1.5rem;
+            height: 70px;
+            width: 100%; /* Make buttons full width of their container */
+            margin-bottom: 10px; /* Add margin between buttons */
             width: calc(33.33% - 10px); /* Adjust button width */
             padding: 15px; /* Adjust padding amount */
         }
